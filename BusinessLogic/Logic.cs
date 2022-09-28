@@ -4,7 +4,7 @@ namespace BusinessLogic;
 public class Logic
 {
     public List<Student> students { get; set; } = new List<Student>();
-
+    
     /// <summary>
     /// Добавить нового студента.
     /// </summary>
@@ -25,24 +25,24 @@ public class Logic
     }
 
     /// <summary>
-    /// Вывести весь список студентов в таблицу
+    /// Вывести весь список студентов.
     /// </summary>
-    public List<string> AllStudents()
+    public List<Student> GetAll()
     {
-        var studentsRepresentations = new List<string>();
+        List<Student> allstudents = new();
 
-        foreach (var student in students)
+        foreach (Student student in students)
         {
-            studentsRepresentations.Add(student.ToString());
+            allstudents.Add(student);
         }
-
-        return studentsRepresentations;
+        return allstudents;
     }
+
     public Dictionary<string, int> DistributionOfSpecialties()
     {
-        var specialtiesDistribution = new Dictionary<string, int>();
+        Dictionary<string, int> specialtiesDistribution = new();
 
-        foreach (var student in students)
+        foreach (Student student in students)
         {
             if (specialtiesDistribution.ContainsKey(student.Speciality))
                 specialtiesDistribution[student.Speciality] += 1;
@@ -50,25 +50,6 @@ public class Logic
             else
                 specialtiesDistribution[student.Speciality] = 1;
         }
-
         return specialtiesDistribution;
     }
-
-    //public string[] GetInfo()
-    //{
-    //    int count = students.Count;
-
-    //    string[] info = new string[3];
-    //    if (students.Count != 0)
-    //    {
-    //        foreach (var isStudent in students)
-    //        {
-    //            info += studensts.Name;
-    //            Console.WriteLine(isStudent.Name + " " + isStudent.Speciality + " " + isStudent.Group);
-    //        }
-    //    }
-    //    else
-    //        Console.WriteLine("Список пуст...");
-    //    Console.WriteLine();
-    //}
 }

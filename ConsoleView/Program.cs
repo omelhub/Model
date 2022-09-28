@@ -1,7 +1,16 @@
 ﻿using BusinessLogic;
+using Model;
 using System.Collections.Generic;
 
 Logic logic = new();
+
+//тестовый список студентов
+logic.students.Add(new Student() { Name = "Иванов", Speciality = "Информатика", Group = "КИ21-21Б" });
+logic.students.Add(new Student() { Name = "Петров", Speciality = "Информатика", Group = "КИ21-21Б" });
+logic.students.Add(new Student() { Name = "Сидоров", Speciality = "Информатика", Group = "КИ21-21Б" });
+logic.students.Add(new Student() { Name = "Лагойда", Speciality = "Информатика", Group = "КИ21-21Б" });
+logic.students.Add(new Student() { Name = "Машкова", Speciality = "Биология", Group = "КИ21-01А" });
+logic.students.Add(new Student() { Name = "Викторова", Speciality = "Биология", Group = "КИ21-02А" });
 
 static void Commands()
 {
@@ -54,9 +63,11 @@ void DeleteStudentCommand()
 
 void ShowStudentsCommand()
 {
-    List<string> list = logic.AllStudents();
-    foreach (string s in list)
+    Console.WriteLine($"\n\n{"Имя", -30} {"| Специальность", -30} {"| Группа", -20}");
+    Console.WriteLine(new string('-', 80));
+    List<Student> allStudents = logic.GetAll();
+    foreach (Student student in allStudents)
     {
-        Console.WriteLine(s);
+        Console.WriteLine($"{student.Name, -30} {student.Speciality, -30} {student.Group, -20}");
     }
 }
