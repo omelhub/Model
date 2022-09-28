@@ -10,39 +10,7 @@ public class Logic
     /// </summary>
     public void AddStudent(string name, string speciality, string group)
     {
-        bool flag = false;
-        foreach (Student student in students)
-        {
-            if (student.Name == name && student.Speciality == speciality && student.Group == group)
-            {
-                Console.WriteLine($"{name} {speciality} {group} уже есть!");
-                flag = true;
-                break;
-            }
-        }
-        if (!flag)
-        {
-            students.Add(new Student { Name = name, Speciality = speciality, Group = group });
-            Console.WriteLine("Студент добавлен.");
-        }
-    }
-
-    /// <summary>
-    /// Удалить студента по данным.
-    /// </summary>
-    public void DeleteStudent(string name, string speciality, string group)
-    {
-        if (students.Count == 0)
-            Console.WriteLine("Студентов всё равно нет.");
-        foreach (Student student in students)
-        {
-            if (student.Name == name && student.Speciality == speciality && student.Group == group)
-            {
-                students.Remove(student);
-                Console.WriteLine("Студент удален.");
-                break;
-            }
-        }
+         students.Add(new Student { Name = name, Speciality = speciality, Group = group });
     }
 
     /// <summary>
@@ -50,41 +18,57 @@ public class Logic
     /// </summary>
     public void DeleteStudent(int index)
     {
-        if (students.Count == 0)
-            Console.WriteLine("Студентов всё равно нет.");
         if (students.Count > index)
         {
-            Console.WriteLine("Студент удален.");
             students.RemoveAt(index);
         }
-        else
-            Console.WriteLine($"Нет студентов с индексом {index}, введите число от 0 до {students.Count - 1}!");
     }
 
     /// <summary>
     /// Вывести весь список студентов в таблицу
     /// </summary>
-    public void ShowTable()
+    public List<string> AllStudents()
     {
-        Console.WriteLine("\nВывод списка студентов");
-        Console.WriteLine("----------------------");
-        if (students.Count != 0)
+        var studentsRepresentations = new List<string>();
+
+        foreach (var student in students)
         {
-            foreach (var isStudent in students)
-            {
-                Console.WriteLine(isStudent.Name + " " + isStudent.Speciality + " " + isStudent.Group);
-            }
+            studentsRepresentations.Add(student.ToString());
         }
-        else
-            Console.WriteLine("Список пуст...");
-        Console.WriteLine();
-    }
 
-    /// <summary>
-    /// Вывести гистограмму: распределение студентов по специальностям.
-    /// </summary>
-    public void ShowBarChart()
+        return studentsRepresentations;
+    }
+    public Dictionary<string, int> DistributionOfSpecialties()
     {
+        var specialtiesDistribution = new Dictionary<string, int>();
 
+        foreach (var student in students)
+        {
+            if (specialtiesDistribution.ContainsKey(student.Speciality))
+                specialtiesDistribution[student.Speciality] += 1;
+
+            else
+                specialtiesDistribution[student.Speciality] = 1;
+        }
+
+        return specialtiesDistribution;
     }
+
+    //public string[] GetInfo()
+    //{
+    //    int count = students.Count;
+
+    //    string[] info = new string[3];
+    //    if (students.Count != 0)
+    //    {
+    //        foreach (var isStudent in students)
+    //        {
+    //            info += studensts.Name;
+    //            Console.WriteLine(isStudent.Name + " " + isStudent.Speciality + " " + isStudent.Group);
+    //        }
+    //    }
+    //    else
+    //        Console.WriteLine("Список пуст...");
+    //    Console.WriteLine();
+    //}
 }
